@@ -1,0 +1,40 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "services": "Services",
+    "about": "À propos",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tagline": "Idées → Réalité."
+  },
+  "services": {
+    "title": "Nos Services",
+    "web": "Sites Web",
+    "mobile": "Applications Mobiles",
+    "automation": "Automatisation",
+    "ai": "IA & Données",
+    "design": "Design Graphique",
+    "custom": "Logiciels Sur Mesure"
+  },
+  "about": {
+    "title": "À Propos de Nous",
+    "mission": "Chez HexaFlow, nous transformons des idées complexes en solutions logicielles élégantes et efficaces.",
+    "process_title": "Notre Processus",
+    "discover": "Découvrir",
+    "design": "Concevoir",
+    "build": "Développer",
+    "iterate": "Itérer"
+  },
+  "contact": {
+    "title": "Contactez-Nous",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Envoyer le Message",
+    "fallback": "Ou envoyez-nous un email directement"
+  },
+  "footer": {
+    "copyright": "© 2024 HexaFlow. Tous droits réservés."
+  }
+}

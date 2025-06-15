@@ -1,0 +1,40 @@
+{
+  "navigation": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tagline": "Ideas → Runtime."
+  },
+  "services": {
+    "title": "Our Services",
+    "web": "Web Sites",
+    "mobile": "Mobile Apps",
+    "automation": "Automation",
+    "ai": "AI & Data",
+    "design": "Graphic Design",
+    "custom": "Custom Software"
+  },
+  "about": {
+    "title": "About Us",
+    "mission": "At HexaFlow, we transform complex ideas into elegant, efficient software solutions.",
+    "process_title": "Our Process",
+    "discover": "Discover",
+    "design": "Design",
+    "build": "Build",
+    "iterate": "Iterate"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Send Message",
+    "fallback": "Or email us directly"
+  },
+  "footer": {
+    "copyright": "© 2024 HexaFlow. All rights reserved."
+  }
+}
