@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useCallback, useMemo } from "react";
-import { useTheme } from "next-themes";
-import ProfileCardAnimatedBackground from "./ProfileCardAnimatedBackground";
+import { useTheme } from "next-themes"; // Re-add useTheme
+import ProfileCardAnimatedBackground from "./ProfileCardAnimatedBackground"; // Re-add ProfileCardAnimatedBackground
 import "./ProfileCard.css";
 
 interface ProfileCardProps {
@@ -73,10 +73,10 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const { resolvedTheme } = useTheme();
+  const { resolvedTheme } = useTheme(); // Re-add useTheme hook call
 
-  // Logging for theme state
-  console.log('[PC] Rendering ProfileCard. ResolvedTheme:', resolvedTheme, 'Should render anim BG?:', resolvedTheme === 'light');
+  // Logging for theme state (placed correctly in component body)
+  console.log('[PC] Rendering ProfileCard. ResolvedTheme:', resolvedTheme);
 
   const animationHandlers = useMemo(() => {
     if (!enableTilt) return null;
@@ -272,7 +272,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     >
       <section ref={cardRef} className="pc-card">
         <div className="pc-inside">
-          {resolvedTheme === 'light' && <ProfileCardAnimatedBackground />}
+          <ProfileCardAnimatedBackground /> {/* Render unconditionally */}
           <div className="pc-shine" />
           <div className="pc-glare" />
           <div className="pc-content pc-avatar-content">

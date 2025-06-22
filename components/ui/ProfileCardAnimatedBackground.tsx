@@ -127,7 +127,6 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  // const containerRef = useRef<HTMLDivElement>(null); // Ref for the container to get dimensions - not used here
 
   useEffect(() => {
     setMounted(true)
@@ -135,20 +134,11 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
 
   useEffect(() => {
     console.log('[PCA_BG] Effect triggered. Mounted:', mounted, 'ResolvedTheme:', resolvedTheme);
-    // Explicitly check for 'light' theme.
-    if (!mounted || resolvedTheme !== 'light') {
-      console.log('[PCA_BG] Condition not met (not light or not mounted), returning from effect.');
-      // Ensure canvas is clear if it was somehow rendered before theme resolved
-      const canvas = canvasRef.current;
-      if (canvas) {
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-      }
+    if (!mounted || !resolvedTheme) { // Wait for mount and theme resolution
+      console.log('[PCA_BG] Not mounted or theme not resolved yet.');
       return;
     }
-    console.log('[PCA_BG] Condition met (mounted and light theme), proceeding with canvas setup.');
+    console.log('[PCA_BG] Condition met (mounted and theme resolved), proceeding with canvas setup.');
 
     const canvas = canvasRef.current
     if (!canvas) return
@@ -186,10 +176,17 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
       draw() {
         const noiseVal = (SimplexNoise.noise3D(this.x / 250, this.y / 250, time) + 1) / 2
 
-        const hue = 200 + noiseVal * 40
-        const lightness = 50 + noiseVal * 25
-        const alpha = 0.5 + noiseVal * 0.2
-        ctx!.fillStyle = `hsla(${hue}, 60%, ${lightness}%, ${alpha})`
+        if (resolvedTheme === 'dark') {
+          const hue = 180 + noiseVal * 60 // Blue to Teal range for dark
+          const lightness = 20 + noiseVal * 30 // Adjusted for smaller card
+          const alpha = 0.4 + noiseVal * 0.3 // Adjusted alpha for card
+          ctx!.fillStyle = `hsla(${hue}, 90%, ${lightness}%, ${alpha})`
+        } else { // Light theme
+          const hue = 200 + noiseVal * 40
+          const lightness = 50 + noiseVal * 25
+          const alpha = 0.5 + noiseVal * 0.2
+          ctx!.fillStyle = `hsla(${hue}, 60%, ${lightness}%, ${alpha})`
+        }
 
         ctx!.beginPath()
         ctx!.arc(this.x, this.y, 0.7, 0, Math.PI * 2)
@@ -207,7 +204,9 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
     let animationFrameId: number
     const animate = () => {
       if (!canvasRef.current) return;
-      ctx!.fillStyle = "rgba(255, 255, 255, 0.1)"
+
+      // Set the background color based on the current theme
+      ctx!.fillStyle = resolvedTheme === "dark" ? "rgba(10, 10, 20, 0.05)" : "rgba(255, 255, 255, 0.05)" // Subtle trail
       ctx!.fillRect(0, 0, w, h)
       time += 0.002
 
@@ -244,11 +243,11 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
   }, [mounted, resolvedTheme])
 
   console.log('[PCA_BG] Render check. Mounted:', mounted, 'ResolvedTheme:', resolvedTheme);
-  if (!mounted || resolvedTheme !== 'light') {
-    console.log('[PCA_BG] Render check: Not rendering canvas.');
+  if (!mounted) { // Only defer rendering until mounted, theme is handled by effect
+    console.log('[PCA_BG] Render check: Not rendering canvas because not mounted.');
     return null
   }
-  console.log('[PCA_BG] Render check: Rendering canvas.');
+  console.log('[PCA_BG] Render check: Rendering canvas because mounted.');
 
   return <canvas ref={canvasRef} className={`absolute top-0 left-0 w-full h-full -z-1 ${className || ''}`} />
 }
