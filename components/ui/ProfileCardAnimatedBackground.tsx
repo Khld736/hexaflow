@@ -134,7 +134,21 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
   }, [])
 
   useEffect(() => {
-    if (!mounted || resolvedTheme !== 'light') return // Only run for light theme and on client
+    console.log('[PCA_BG] Effect triggered. Mounted:', mounted, 'ResolvedTheme:', resolvedTheme);
+    // Explicitly check for 'light' theme.
+    if (!mounted || resolvedTheme !== 'light') {
+      console.log('[PCA_BG] Condition not met (not light or not mounted), returning from effect.');
+      // Ensure canvas is clear if it was somehow rendered before theme resolved
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+      return;
+    }
+    console.log('[PCA_BG] Condition met (mounted and light theme), proceeding with canvas setup.');
 
     const canvas = canvasRef.current
     if (!canvas) return
@@ -233,9 +247,12 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
     }
   }, [mounted, resolvedTheme])
 
+  console.log('[PCA_BG] Render check. Mounted:', mounted, 'ResolvedTheme:', resolvedTheme);
   if (!mounted || resolvedTheme !== 'light') {
+    console.log('[PCA_BG] Render check: Not rendering canvas.');
     return null
   }
+  console.log('[PCA_BG] Render check: Rendering canvas.');
 
   // Canvas is styled to fill its parent which will be .pc-inside
   return <canvas ref={canvasRef} className={`absolute top-0 left-0 w-full h-full -z-1 ${className || ''}`} />

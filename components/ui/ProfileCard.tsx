@@ -269,6 +269,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     >
       <section ref={cardRef} className="pc-card">
         <div className="pc-inside">
+          {console.log('[PC] Rendering. ResolvedTheme:', resolvedTheme, 'Should render anim BG?:', resolvedTheme === 'light')}
           {resolvedTheme === 'light' && <ProfileCardAnimatedBackground />}
           <div className="pc-shine" />
           <div className="pc-glare" />
