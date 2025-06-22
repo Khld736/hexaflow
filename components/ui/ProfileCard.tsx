@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useCallback, useMemo } from "react";
+import { useTheme } from "next-themes";
+import ProfileCardAnimatedBackground from "./ProfileCardAnimatedBackground";
 import "./ProfileCard.css";
 
 interface ProfileCardProps {
@@ -71,6 +73,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const { resolvedTheme } = useTheme();
 
   const animationHandlers = useMemo(() => {
     if (!enableTilt) return null;
@@ -266,6 +269,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     >
       <section ref={cardRef} className="pc-card">
         <div className="pc-inside">
+          {resolvedTheme === 'light' && <ProfileCardAnimatedBackground />}
           <div className="pc-shine" />
           <div className="pc-glare" />
           <div className="pc-content pc-avatar-content">
