@@ -2,6 +2,7 @@ import { getDictionary } from "@/lib/i18n"
 import HeroSection from "@/components/hero-section"
 import ServicesSection from "@/components/services-section"
 import AboutSection from "@/components/about-section"
+import TeamSection from "@/components/team-section" // Added import
 import ContactSection from "@/components/contact-section"
 import { ThemeProvider } from "@/components/theme-provider"
 import Header from "@/components/header"
@@ -41,6 +42,7 @@ export default async function LocalePage({
         <HeroSection dict={dict} />
         <ServicesSection dict={dict} id="services" />
         <AboutSection dict={dict} id="about" />
+        <TeamSection dict={dict} id="team" /> {/* Added TeamSection */}
         <ContactSection dict={dict} id="contact" />
       </main>
       <Footer dict={dict} locale={locale} />

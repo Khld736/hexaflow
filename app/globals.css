@@ -24,6 +24,19 @@
     --input: 240 5.9% 90%;
     --ring: 174 92% 53%;
     --radius: 0.5rem;
+
+    /* ProfileCard Light Theme Variables */
+    --pc-shadow-color-rgb: 0, 0, 0; /* Shadow color for light theme */
+    --pc-inside-bg-color: hsl(var(--background)); /* Slightly off-white or card color */
+    --pc-user-info-bg-color-hsla: var(--secondary); /* Light gray, alpha added in component CSS */
+    --pc-user-info-border-color-hsla: var(--border); /* Light gray border, alpha added in component CSS */
+    --pc-text-primary-color: hsl(var(--foreground)); /* Dark text for light theme */
+    --pc-text-secondary-color: hsl(var(--muted-foreground)); /* Muted dark text */
+    --pc-contact-btn-border-color-hsla: var(--border);
+    --pc-contact-btn-hover-border-color-hsla: var(--primary);
+    --pc-details-gradient-from-color: hsl(var(--foreground));
+    --pc-shine-effect-dark-color: hsl(227, 30%, 20%); /* A bit lighter for light theme's dark accents */
+    --pc-avatar-mask-stop-color: hsl(var(--card)); /* Use card background for mask */
   }
 
   .dark {
@@ -46,6 +59,19 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 174 92% 53%;
+
+    /* ProfileCard Dark Theme Variable Overrides */
+    --pc-shadow-color-rgb: 0, 0, 0; /* Shadow color for dark theme */
+    --pc-inside-bg-color: hsl(var(--background)); /* Dark background for card inside */
+    --pc-user-info-bg-color-hsla: 0, 0%, 100%; /* White for background, alpha added in component CSS */
+    --pc-user-info-border-color-hsla: 0, 0%, 100%; /* White for border, alpha added in component CSS */
+    --pc-text-primary-color: hsl(var(--foreground)); /* Light text for dark theme */
+    --pc-text-secondary-color: hsl(var(--muted-foreground)); /* Muted light text */
+    --pc-contact-btn-border-color-hsla: 0, 0%, 100%;
+    --pc-contact-btn-hover-border-color-hsla: 0, 0%, 100%;
+    --pc-details-gradient-from-color: hsl(0, 0%, 100%); /* White */
+    --pc-shine-effect-dark-color: hsl(227, 30%, 12%); /* Original #0e152e */
+    --pc-avatar-mask-stop-color: hsl(0, 0%, 0%); /* Black for mask */
   }
 }
 
