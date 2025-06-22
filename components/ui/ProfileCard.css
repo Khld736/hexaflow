@@ -94,9 +94,10 @@
 
 .pc-inside {
   inset: 1px;
-  position: absolute;
-  background-image: var(--inner-gradient);
-  background-color: var(--pc-inside-bg-color);
+  position: absolute; /* This is fine, as its parent .pc-card is relative */
+  /* Ensure it creates a stacking context and can contain the ::before/::after and canvas */
+  background-image: var(--inner-gradient); /* This gradient will be on top of the canvas if not managed by z-index */
+  background-color: var(--pc-inside-bg-color); /* Fallback, mostly obscured by canvas in light mode */
   transform: translate3d(0, 0, 0.01px);
 }
 
