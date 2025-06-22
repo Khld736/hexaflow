@@ -21,15 +21,17 @@ export default async function LocaleLayout({
   children: React.ReactNode
   params: { locale: string }
 }) {
+  const currentLocale = params.locale; // Explicitly read the param
+
   // The middleware prevents invalid locales, but this is a safeguard.
   // It also ensures the default locale is not handled here, preventing duplicate pages.
-  if (!locales.includes(params.locale) || params.locale === defaultLocale) {
+  if (!locales.includes(currentLocale) || currentLocale === defaultLocale) {
     notFound()
   }
 
   return (
     <html
-      lang={params.locale}
+      lang={currentLocale}
       suppressHydrationWarning
       className="scroll-smooth"
     >

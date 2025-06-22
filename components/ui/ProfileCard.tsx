@@ -75,6 +75,9 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   const cardRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
 
+  // Logging for theme state
+  console.log('[PC] Rendering ProfileCard. ResolvedTheme:', resolvedTheme, 'Should render anim BG?:', resolvedTheme === 'light');
+
   const animationHandlers = useMemo(() => {
     if (!enableTilt) return null;
 
@@ -269,7 +272,6 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     >
       <section ref={cardRef} className="pc-card">
         <div className="pc-inside">
-          {console.log('[PC] Rendering. ResolvedTheme:', resolvedTheme, 'Should render anim BG?:', resolvedTheme === 'light')}
           {resolvedTheme === 'light' && <ProfileCardAnimatedBackground />}
           <div className="pc-shine" />
           <div className="pc-glare" />

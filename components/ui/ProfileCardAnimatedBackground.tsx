@@ -127,7 +127,7 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null); // Ref for the container to get dimensions
+  // const containerRef = useRef<HTMLDivElement>(null); // Ref for the container to get dimensions - not used here
 
   useEffect(() => {
     setMounted(true)
@@ -161,9 +161,8 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
     let w = (canvas.width = parentElement.clientWidth)
     let h = (canvas.height = parentElement.clientHeight)
     let particles: Particle[] = []
-    // Reduced particle count for smaller area
-    const particleCount = w * h < 150000 ? 100 : 200; // Adjust based on area
-    let time = Math.random() * 100; // Random start time for variation
+    const particleCount = w * h < 150000 ? 100 : 200;
+    let time = Math.random() * 100;
 
     class Particle {
       x: number
@@ -174,10 +173,9 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
       }
 
       update() {
-        // Slower and potentially different scale for noise
         const angle = SimplexNoise.noise3D(this.x / 100, this.y / 100, time) * Math.PI
-        this.x += Math.cos(angle) * 0.3 // Slower particle speed
-        this.y += Math.sin(angle) * 0.3 // Slower particle speed
+        this.x += Math.cos(angle) * 0.3
+        this.y += Math.sin(angle) * 0.3
 
         if (this.x < 0) this.x = w
         if (this.x > w) this.x = 0
@@ -188,20 +186,19 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
       draw() {
         const noiseVal = (SimplexNoise.noise3D(this.x / 250, this.y / 250, time) + 1) / 2
 
-        // Light theme particle colors (adjusted from AnimatedBackground)
         const hue = 200 + noiseVal * 40
-        const lightness = 50 + noiseVal * 25 // Slightly brighter base
-        const alpha = 0.5 + noiseVal * 0.2 // Varying alpha
+        const lightness = 50 + noiseVal * 25
+        const alpha = 0.5 + noiseVal * 0.2
         ctx!.fillStyle = `hsla(${hue}, 60%, ${lightness}%, ${alpha})`
 
         ctx!.beginPath()
-        ctx!.arc(this.x, this.y, 0.7, 0, Math.PI * 2) // Slightly larger particles
+        ctx!.arc(this.x, this.y, 0.7, 0, Math.PI * 2)
         ctx!.fill()
       }
     }
 
     function init() {
-      particles = [] // Clear previous particles
+      particles = []
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle())
       }
@@ -209,11 +206,10 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
 
     let animationFrameId: number
     const animate = () => {
-      if (!canvasRef.current) return; // Ensure canvas still exists
-      // Light theme canvas background fill (semi-transparent white)
+      if (!canvasRef.current) return;
       ctx!.fillStyle = "rgba(255, 255, 255, 0.1)"
       ctx!.fillRect(0, 0, w, h)
-      time += 0.002 // Slightly different time progression
+      time += 0.002
 
       particles.forEach((p) => {
         p.update()
@@ -227,7 +223,7 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
       for (let entry of entries) {
         w = canvas.width = entry.contentRect.width;
         h = canvas.height = entry.contentRect.height;
-        init(); // Re-initialize particles on resize
+        init();
       }
     });
 
@@ -254,6 +250,5 @@ export default function ProfileCardAnimatedBackground({ className }: ProfileCard
   }
   console.log('[PCA_BG] Render check: Rendering canvas.');
 
-  // Canvas is styled to fill its parent which will be .pc-inside
   return <canvas ref={canvasRef} className={`absolute top-0 left-0 w-full h-full -z-1 ${className || ''}`} />
 }
