@@ -6,28 +6,36 @@ import ContactSection from "@/components/contact-section"
 import { ThemeProvider } from "@/components/theme-provider"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { locales, defaultLocale } from "@/middleware"
+import { locales } from "@/middleware"
 import { notFound } from "next/navigation"
 
+// This function tells Next.js which locales are available
+// and helps it generate the correct routes during the build process.
+export async function generateStaticParams() {
+  return locales.map((locale) => ({ locale }))
+}
+
 export default async function LocalePage({
-  params: { locale },
+  params,
 }: {
   params: { locale: string }
 }) {
+  const { locale } = params
+
   // Validate locale
   if (!locales.includes(locale)) {
-    notFound()
-  }
-
-  // If it's the default locale, it should be handled by the root page
-  if (locale === defaultLocale) {
     notFound()
   }
 
   const dict = await getDictionary(locale)
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
       <Header dict={dict} locale={locale} />
       <main className="flex min-h-screen flex-col items-center justify-between scroll-smooth">
         <HeroSection dict={dict} />

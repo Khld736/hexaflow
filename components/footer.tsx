@@ -36,7 +36,7 @@ export default function Footer({ dict, locale = "en" }: { dict: any; locale?: st
             <span className="sr-only">Twitter</span>
           </Link>
           <Link
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/company/hexa-flow/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary"

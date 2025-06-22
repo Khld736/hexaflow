@@ -3,6 +3,7 @@
     "home": "Home",
     "services": "Services",
     "about": "About",
+    "team": "Team",
     "contact": "Contact"
   },
   "hero": {
@@ -25,6 +26,35 @@
     "design": "Design",
     "build": "Build",
     "iterate": "Iterate"
+  },
+  "team": {
+    "title": "Meet the Team",
+    "members": [
+      {
+        "name": "Khaled Ayedi",
+        "title": "Founder & Lead Developer",
+        "handle": "khaledayed",
+        "avatarUrl": "https://source.unsplash.com/random/400x600?portrait&sig=1",
+        "status": "Online",
+        "contactText": "Contact Me"
+      },
+      {
+        "name": "Jane Doe",
+        "title": "UI/UX Designer",
+        "handle": "janedesigns",
+        "avatarUrl": "https://source.unsplash.com/random/400x600?portrait&sig=2",
+        "status": "Away",
+        "contactText": "Contact Me"
+      },
+      {
+        "name": "John Smith",
+        "title": "Project Manager",
+        "handle": "johnsmith",
+        "avatarUrl": "https://source.unsplash.com/random/400x600?portrait&sig=3",
+        "status": "Online",
+        "contactText": "Contact Me"
+      }
+    ]
   },
   "contact": {
     "title": "Get in Touch",

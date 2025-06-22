@@ -1,6 +1,7 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
+import { useTheme } from "next-themes"
 
 // This is a self-contained 2D Simplex noise implementation.
 // No new dependencies are needed.
@@ -151,8 +152,16 @@ const SimplexNoise = (() => {
 
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return // Don't run animation on the server
+
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
@@ -185,9 +194,18 @@ export default function AnimatedBackground() {
 
       draw() {
         const noiseVal = (SimplexNoise.noise3D(this.x / 500, this.y / 500, time) + 1) / 2
-        const hue = 180 + noiseVal * 60 // Blue to Teal range
-        const lightness = 20 + noiseVal * 40
-        ctx!.fillStyle = `hsla(${hue}, 100%, ${lightness}%, 0.6)`
+        
+        if (resolvedTheme === 'dark') {
+          const hue = 180 + noiseVal * 60 // Blue to Teal range for dark
+          const lightness = 20 + noiseVal * 40
+          ctx!.fillStyle = `hsla(${hue}, 100%, ${lightness}%, 0.6)`
+        } else {
+          // Use darker, less saturated particles for light theme for better visibility
+          const hue = 200 + noiseVal * 40 
+          const lightness = 40 + noiseVal * 30 
+          ctx!.fillStyle = `hsla(${hue}, 70%, ${lightness}%, 0.7)`
+        }
+
         ctx!.beginPath()
         ctx!.arc(this.x, this.y, 0.5, 0, Math.PI * 2)
         ctx!.fill()
@@ -202,7 +220,8 @@ export default function AnimatedBackground() {
 
     let animationFrameId: number
     const animate = () => {
-      ctx!.fillStyle = "rgba(10, 10, 10, 0.1)"
+      // Set the background color based on the current theme
+      ctx!.fillStyle = resolvedTheme === "dark" ? "rgba(10, 10, 10, 0.1)" : "rgba(255, 255, 255, 0.2)"
       ctx!.fillRect(0, 0, w, h)
       time += 0.001
 
@@ -230,7 +249,12 @@ export default function AnimatedBackground() {
       window.removeEventListener("resize", handleResize)
       cancelAnimationFrame(animationFrameId)
     }
-  }, [])
+  }, [mounted, resolvedTheme])
+
+  if (!mounted) {
+    // Return null on the server to prevent hydration errors
+    return null
+  }
 
   return <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full -z-10" />
 }

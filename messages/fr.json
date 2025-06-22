@@ -3,6 +3,7 @@
     "home": "Accueil",
     "services": "Services",
     "about": "À propos",
+    "team": "Équipe",
     "contact": "Contact"
   },
   "hero": {
@@ -25,6 +26,35 @@
     "design": "Concevoir",
     "build": "Développer",
     "iterate": "Itérer"
+  },
+  "team": {
+    "title": "Notre Équipe",
+    "members": [
+      {
+        "name": "Khaled Ayedi",
+        "title": "Fondateur & Développeur Principal",
+        "handle": "khaledayed",
+        "avatarUrl": "https://source.unsplash.com/random/400x600?portrait&sig=1",
+        "status": "En ligne",
+        "contactText": "Contactez-moi"
+      },
+      {
+        "name": "Jane Doe",
+        "title": "Designer UI/UX",
+        "handle": "janedesigns",
+        "avatarUrl": "https://source.unsplash.com/random/400x600?portrait&sig=2",
+        "status": "Absente",
+        "contactText": "Contactez-moi"
+      },
+      {
+        "name": "John Smith",
+        "title": "Chef de Projet",
+        "handle": "johnsmith",
+        "avatarUrl": "https://source.unsplash.com/random/400x600?portrait&sig=3",
+        "status": "En ligne",
+        "contactText": "Contactez-moi"
+      }
+    ]
   },
   "contact": {
     "title": "Contactez-Nous",

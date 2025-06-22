@@ -16,24 +16,26 @@ const jetbrainsMono = JetBrains_Mono({
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode
   params: { locale: string }
 }) {
-  // Validate locale
-  if (!locales.includes(locale)) {
-    notFound()
-  }
-
-  // If it's the default locale, it should be handled by the root layout
-  if (locale === defaultLocale) {
+  // The middleware prevents invalid locales, but this is a safeguard.
+  // It also ensures the default locale is not handled here, preventing duplicate pages.
+  if (!locales.includes(params.locale) || params.locale === defaultLocale) {
     notFound()
   }
 
   return (
-    <html lang={locale} suppressHydrationWarning className="scroll-smooth">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans`}>{children}</body>
+    <html
+      lang={params.locale}
+      suppressHydrationWarning
+      className="scroll-smooth"
+    >
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans`}>
+        {children}
+      </body>
     </html>
   )
 }

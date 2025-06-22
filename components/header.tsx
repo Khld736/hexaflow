@@ -47,6 +47,7 @@ export default function Header({
     { href: `${localePrefix}/`, label: dict.navigation.home },
     { href: `${localePrefix}/#services`, label: dict.navigation.services },
     { href: `${localePrefix}/#about`, label: dict.navigation.about },
+    { href: `${localePrefix}/#team`, label: dict.navigation.team }, // Add this line
     { href: `${localePrefix}/#contact`, label: dict.navigation.contact },
   ]
 
@@ -69,7 +70,9 @@ export default function Header({
     <header
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300",
-        isScrolled ? "bg-background/80 backdrop-blur-md shadow-sm" : "bg-transparent",
+        isScrolled
+          ? "bg-background/80 backdrop-blur-md shadow-sm"
+          : "bg-transparent"
       )}
     >
       <div className="container flex h-16 items-center justify-between">
@@ -83,13 +86,22 @@ export default function Header({
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="text-sm font-medium transition-colors hover:text-primary">
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-sm font-medium transition-colors hover:text-primary"
+            >
               {item.label}
             </Link>
           ))}
 
           <div className="flex items-center gap-2 border-l pl-4 ml-2">
-            <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleTheme}
+              className="rounded-full"
+            >
               <SunIcon className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <MoonIcon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
@@ -102,7 +114,11 @@ export default function Header({
         {/* Mobile Menu Button */}
         <div className="flex md:hidden">
           <Button variant="ghost" size="icon" onClick={toggleMenu}>
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </Button>
         </div>
       </div>
@@ -123,7 +139,12 @@ export default function Header({
             ))}
 
             <div className="flex items-center justify-between pt-4 border-t">
-              <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleTheme}
+                className="rounded-full"
+              >
                 <SunIcon className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <MoonIcon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                 <span className="sr-only">Toggle theme</span>
